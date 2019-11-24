@@ -10,7 +10,13 @@ exports.ServiceController = class ServiceControllerClass {
   /*Funcion para hacer un
   nuevo servicio*/
   async create(req, res){
-    baseController.insert_res(res, req.body, Service);
+    try{
+      const service = new Service(req.body);
+      await service.save()
+      res.status(200).json(service);
+    }catch(error){
+      res.status(400).json(error)
+    }
   }
 
   async getList(req, res){
@@ -20,9 +26,10 @@ exports.ServiceController = class ServiceControllerClass {
   async delete(req, res){
     try{
       const service = await Service.deleteOne({_id:baseController.getId(req.params.service_id)});
+      if(service.deletedCount == 0) throw new Error('No se encontro el valor')
       res.status(200).send(service);
     }catch (error){
-      res.status(400).json({msg:error.message});
+      res.status(400).json({message:error.message});
     }
   }
 }
