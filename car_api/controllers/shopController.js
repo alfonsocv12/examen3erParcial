@@ -1,11 +1,21 @@
 const Shop = require('../models/shopModel');
 const passwordHash = require('password-hash');
 const baseController = new (require("../controllers/baseController")).BaseController();
+const ObjectId = (require('mongoose')).Types.ObjectId
 
 exports.ShopController = class ShopControllerClass {
   /*Funcion constructora*/
   constructor() {
     require('auto-bind')(this);
+  }
+
+  /*
+  Funcion encargada de regresar
+  todas las shops*/
+  async getAll(req, res){
+    let query = {}
+    req.query.service_id ? query['services'] = ObjectId(req.query.service_id) : null;
+    res.status(200).send(await Shop.find(query));
   }
 
   /*
