@@ -72,10 +72,13 @@ describe('Shop',()=>{
       expect(ResTest.sendBody.msg).to.be.equal("Argument passed in must be a single String of 12 bytes or a string of 24 hex characters");
     });
     it('Should bring array all shops',async ()=>{
-
+      req.query.service_id = null;
+      await shopControllerInit.getAll(req, ResTest);
+      expect(typeof ResTest.sendBody).to.be.equal("object");
     });
     it('Should bring array all shops that change balatas',async ()=>{
-
+      await shopControllerInit.getAll(req, ResTest);
+      expect(typeof ResTest.sendBody).to.be.equal("object");
     });
   });
 
