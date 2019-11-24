@@ -51,7 +51,8 @@ exports.ShopController = class ShopControllerClass {
     const shop = await Shop.findOne({email:req.body.email})
     this.validateEmail(res, shop)
     this.validatePassword(res, shop.password, req.body.password);
-    res.status(200).send({msg:"token"})
+    shop.msg = "token"
+    res.status(200).send(shop)
   }
 
   /*

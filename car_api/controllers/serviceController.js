@@ -1,6 +1,5 @@
 const Service = require('../models/serviceModel');
 const baseController = new (require("../controllers/baseController")).BaseController();
-const ObjectId = (require('mongoose')).Schema.Types.ObjectId
 
 exports.ServiceController = class ServiceControllerClass {
   /*Funcion constructora*/
