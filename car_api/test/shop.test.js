@@ -30,7 +30,6 @@ describe('Shop',()=>{
     it('Should say that you dident send required values',async ()=>{
       req.body = {}
       await shopControllerInit.create(req, ResTest)
-      console.log(ResTest.sendBody.message);
       expect(ResTest.statusCode).to.be.equal(400)
     });
     it('Should tell the ObjectId its wrong',async ()=>{

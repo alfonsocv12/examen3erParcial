@@ -29,11 +29,11 @@ exports.BaseController = class BaseClass {
     }
   }
 
-  getId(res, stringId){
+  getId(stringId){
     try{
       return ObjectId(stringId)
     }catch{
-      res.status(400).send({msg:"Id invalido"})
+      throw new Error("Id invalido")
     }
   }
 
@@ -50,7 +50,7 @@ exports.BaseController = class BaseClass {
     if(!dNum && dNum !== 0) return false; // NaN value, Invalid date
     return true;
   }
-  
+
   exit( status ) {
     // http://kevin.vanzonneveld.net
     // +   original by: Brett Zamir (http://brettz9.blogspot.com)

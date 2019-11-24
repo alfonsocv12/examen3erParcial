@@ -36,7 +36,7 @@ exports.ShopController = class ShopControllerClass {
         await shop.save();
         res.status(200).json(shop);
     } catch (error) {
-        res.status(400).json(error);
+        res.status(400).json({message:error.message});
 
     }
   }

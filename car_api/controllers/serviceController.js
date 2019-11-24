@@ -18,12 +18,11 @@ exports.ServiceController = class ServiceControllerClass {
   }
 
   async delete(req, res){
-    const id = baseController.getId(res, req.params.service_id)
     try{
-      const service = await Service.deleteOne({_id:id});
+      const service = await Service.deleteOne({_id:baseController.getId(req.params.service_id)});
       res.status(200).send(service);
     }catch (error){
-      res.status(400).json(error);
+      res.status(400).json({msg:error.message});
     }
   }
 }
