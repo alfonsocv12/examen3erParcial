@@ -11,5 +11,37 @@ initTest();
 const serviceControllerInit = new ServiceController();
 
 describe.only('appointment',()=>{
-  
+  describe('create',()=>{
+    it('',async ()=>{
+
+    });
+    it('',async ()=>{
+
+    });
+    it('',async ()=>{
+
+    });
+  });
+  describe('update',()=>{
+    it('',async ()=>{
+
+    });
+    it('',async ()=>{
+
+    });
+    it('',async ()=>{
+
+    });
+  });
+  describe('appointmentStatusTypes',()=>{
+    it('',async ()=>{
+
+    });
+    it('',async ()=>{
+
+    });
+    it('',async ()=>{
+
+    });
+  });
 })
