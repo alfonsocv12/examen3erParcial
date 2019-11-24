@@ -29,7 +29,7 @@
       </div>
       <div class="col form-group">
         <label for="date"> date</label>
-        <datetime class="form-control" format="YYYY-MM-DD H:i" v-model="val"></datetime>
+        <datetime class="form-control" format="YYYY-MM-DD H:i"></datetime>
       </div>
     </form>
 
@@ -38,7 +38,7 @@
 
 <script>
   import datetime from 'vuejs-datetimepicker';
-  
+
   export default {
     name: 'home',
     components: {
