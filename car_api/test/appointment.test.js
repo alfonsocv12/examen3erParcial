@@ -19,30 +19,6 @@ describe.only('appointment',()=>{
     }
   });
 
-  describe('create',()=>{
-    it('',async ()=>{
-
-    });
-    it('',async ()=>{
-
-    });
-    it('',async ()=>{
-
-    });
-  });
-
-  describe('update',()=>{
-    it('',async ()=>{
-
-    });
-    it('',async ()=>{
-
-    });
-    it('',async ()=>{
-
-    });
-  });
-
   describe('appointmentStatusTypes',()=>{
     it('Should return array of status types',()=>{
       appointmentControllerInit.appointmentStatusTypes(req, ResTest);
