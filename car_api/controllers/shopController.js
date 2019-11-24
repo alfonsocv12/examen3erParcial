@@ -1,7 +1,9 @@
 const Shop = require('../models/shopModel');
+const jwt = require('jsonwebtoken');
 const passwordHash = require('password-hash');
 const baseController = new (require("../controllers/baseController")).BaseController();
-const ObjectId = (require('mongoose')).Types.ObjectId
+const ObjectId = (require('mongoose')).Types.ObjectId;
+require('dotenv').config();
 
 exports.ShopController = class ShopControllerClass {
   /*Funcion constructora*/
@@ -48,11 +50,15 @@ exports.ShopController = class ShopControllerClass {
   /*
   Funcion encargada de logian a un usuario*/
   async login(req, res){
-    const shop = await Shop.findOne({email:req.body.email})
-    this.validateEmail(res, shop)
-    this.validatePassword(res, shop.password, req.body.password);
-    shop.msg = "token"
-    res.status(200).send(shop)
+    try{
+      const shop = await Shop.findOne({email:req.body.email},{name:1, email:1,password:1})
+      this.validateEmail(res, shop)
+      this.validatePassword(res, shop.password, req.body.password);
+      const token = jwt.sign({email:shop.email,name:shop.name}, process.env.secret_token, {expiresIn: '24h'});
+      res.status(200).send({token:token})
+    }catch(error){
+      res.status(400).send({msg:error.message});
+    }
   }
 
   /*
@@ -60,7 +66,7 @@ exports.ShopController = class ShopControllerClass {
   correo*/
   validateEmail(res, shop){
     if(!shop){
-      res.status(400).send({msg:"No esta registrado"})
+      throw new Error("El correo o la contraseña son incorrectos");
     }
   }
 
@@ -68,7 +74,7 @@ exports.ShopController = class ShopControllerClass {
   la contraseña*/
   validatePassword(res, shopPassword, bodyPassword){
     if(!passwordHash.verify(bodyPassword, shopPassword)){
-      res.status(400).send({msg:"El correo o la contraseña son incorrectos"})
+      throw new Error("El correo o la contraseña son incorrectos");
     }
   }
 
