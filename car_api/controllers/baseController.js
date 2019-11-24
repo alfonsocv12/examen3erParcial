@@ -1,3 +1,5 @@
+const ObjectId = (require('mongoose')).Types.ObjectId
+
 exports.BaseController = class BaseClass {
   /*Funcion constructora*/
   constructor() {
@@ -16,14 +18,22 @@ exports.BaseController = class BaseClass {
     }
   }
 
-  async insert_res(res, json, model){
+  async insert_res(res, json, Model){
     try {
-        const model = new model(json);
+        const model = new Model(json);
         await model.save();
-        res.status(200).json(shop);
+        res.status(200).json(model);
     } catch (error) {
         res.status(400).json(error);
 
+    }
+  }
+
+  getId(res, stringId){
+    try{
+      return ObjectId(stringId)
+    }catch{
+      res.status(400).send({msg:"Id invalido"})
     }
   }
 }
