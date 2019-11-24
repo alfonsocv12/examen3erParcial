@@ -6,7 +6,6 @@ exports.ServiceController = class ServiceControllerClass {
   /*Funcion constructora*/
   constructor() {
       require('auto-bind')(this);
-      require('auto-bind')(baseController);
   }
 
   /*Funcion para hacer un

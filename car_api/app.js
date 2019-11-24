@@ -29,3 +29,4 @@ app.use(require('body-parser').urlencoded({ extended: true }));
 app.use('/', require("./routes/landingRoutes"));
 app.use('/shop', require("./routes/shopRoutes"));
 app.use('/service', require("./routes/serviceRoutes"));
+app.use('/appointement', require("./routes/appointmentRoutes"));

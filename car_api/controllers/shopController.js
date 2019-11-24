@@ -1,5 +1,6 @@
 const Shop = require('../models/shopModel');
 const passwordHash = require('password-hash');
+const baseController = new (require("../controllers/baseController")).BaseController();
 
 exports.ShopController = class ShopControllerClass {
   /*Funcion constructora*/
@@ -13,9 +14,8 @@ exports.ShopController = class ShopControllerClass {
   */
   async create(req, res){
     try {
-        console.log(req.body.password);
         req.body.password = passwordHash.generate(req.body.password);
-        console.log(req.body.password);
+        req.body.services = this.getOIdArray(res, req.body.services);
         const shop = new Shop(req.body);
         await shop.save();
         res.status(200).json(shop);
@@ -23,6 +23,16 @@ exports.ShopController = class ShopControllerClass {
         res.status(400).json(error);
 
     }
+  }
+
+  /*
+  Funcion encargada de regresar un
+  ObjectId por cada parte del array*/
+  getOIdArray(res, services){
+    for(let [index, service] in services.entries()){
+      services[index] = baseController.getId(res, service);
+    }
+    return services
   }
 
   /*
