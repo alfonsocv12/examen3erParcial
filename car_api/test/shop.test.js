@@ -19,6 +19,9 @@ describe('Shop',()=>{
         email:"alfonsocvdu@gmail.com",
         password:"123456",
         services:["5dda184cf6ee050b14e8046a"]
+      },
+      query:{
+        service_id:"5dda184cf6ee050b14e8046a"
       }
     }
   })
@@ -63,9 +66,17 @@ describe('Shop',()=>{
   });
 
   describe('get all',()=>{
-    it('Should tell the ObjectId its wrong');
-    it('Should bring array all shops');
-    it('Should bring array all shops that change balatas');
+    it('Should tell the ObjectId its wrong',async ()=>{
+      req.query.service_id = "afsausiodha";
+      await shopControllerInit.getAll(req, ResTest);
+      expect(ResTest.sendBody.msg).to.be.equal("Argument passed in must be a single String of 12 bytes or a string of 24 hex characters");
+    });
+    it('Should bring array all shops',async ()=>{
+
+    });
+    it('Should bring array all shops that change balatas',async ()=>{
+
+    });
   });
 
   after(async ()=>{

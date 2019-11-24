@@ -15,9 +15,13 @@ exports.ShopController = class ShopControllerClass {
   Funcion encargada de regresar
   todas las shops*/
   async getAll(req, res){
-    let query = {}
-    req.query.service_id ? query['services'] = ObjectId(req.query.service_id) : null;
-    res.status(200).send(await Shop.find(query));
+    try{
+      let query = {}
+      req.query.service_id ? query['services'] = ObjectId(req.query.service_id) : null;
+      res.status(200).send(await Shop.find(query));
+    }catch(error){
+      res.status(400).send({msg:error.message});
+    }
   }
 
   /*
