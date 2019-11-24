@@ -8,9 +8,17 @@ import mongoose from 'mongoose';
 import { AppointmentController } from '../controllers/appointmentController';
 
 initTest();
-const serviceControllerInit = new ServiceController();
+const appointmentControllerInit = new AppointmentController();
 
 describe.only('appointment',()=>{
+
+  beforeEach(()=>{
+    req = {
+      body:{},
+      params:{}
+    }
+  });
+
   describe('create',()=>{
     it('',async ()=>{
 
@@ -22,6 +30,7 @@ describe.only('appointment',()=>{
 
     });
   });
+
   describe('update',()=>{
     it('',async ()=>{
 
@@ -33,15 +42,16 @@ describe.only('appointment',()=>{
 
     });
   });
+
   describe('appointmentStatusTypes',()=>{
-    it('',async ()=>{
-
-    });
-    it('',async ()=>{
-
-    });
-    it('',async ()=>{
-
+    it('Should return array of status types',()=>{
+      appointmentControllerInit.appointmentStatusTypes(req, ResTest);
+      expect(ResTest.statusCode).to.be.equal(200);
     });
   });
+
+  after(async ()=>{
+    await Appointment.deleteMany({});
+    console.log('delete');
+  })
 })
