@@ -39,7 +39,7 @@ exports.BaseController = class BaseClass {
   /*Funcion encargada de regresar
   si es una fecha valida*/
   isValidDate(dateString) {
-    var regEx = /^((\d{4})-(\d{2})-\d{2}) (20|21|22|23|[0-1]?\d{1}):([0-5]?\d{1}):([0-5]?\d{1})$/;
+    var regEx = /^((\d{4})-(\d{2})-\d{2}) (20|21|22|23|[0-1]?\d{1}):([0-5]?\d{1})$/;
     if(!dateString.match(regEx)) return false;
     var d = new Date(dateString);
     var dNum = d.getTime();

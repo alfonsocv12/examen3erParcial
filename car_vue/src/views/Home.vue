@@ -45,16 +45,18 @@
           <datetime class="form-control" format="YYYY-MM-DD H:i" ref="date"></datetime>
         </div>
       </div>
-      <button href="#" v-on:click="makeAppointment" type="submit" class="btn btn-primary">Submit</button>
+      <a href="#" v-on:click="makeAppointment" type="submit" class="btn btn-primary">Submit</a>
     </form>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
+  import datetime from 'vuejs-datetimepicker';
+
   let storeModuleService = "service";
   let storeModuleShop = "shop";
-  import datetime from 'vuejs-datetimepicker';
+  let storeModuleAppointment = "appointment";
 
   export default {
     name: 'home',
@@ -73,7 +75,7 @@
         this.$store.dispatch(`${storeModuleShop}/getAllShopsAction`, event.target.value).then(result=>{});
       },
       makeAppointment(){
-        let appointment = {
+        let body = {
           name:this.$refs.name.value,
           email:this.$refs.email.value,
           car:this.$refs.car.value,
@@ -81,8 +83,7 @@
           shop:this.$refs.shop.value,
           date:this.$refs.date.date
         }
-        console.log(this.$refs.shop.value);
-        console.log(appointment);
+        this.$store.dispatch(`${storeModuleAppointment}/createAppointmentAction`, body).then(result=>{})
       }
     },
     computed:{

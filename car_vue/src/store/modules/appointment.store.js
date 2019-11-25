@@ -5,29 +5,26 @@ const state = {
 }
 
 const getters = {
-  getShops: state => state.shops
+  getAppointment: state => state.appointment
 }
 
 const mutations = {
-  SET_SHOPS(state, shops){
-    state.shops = shops
+  SET_APPOINTMENT(state, appointment){
+    state.appointment = appointment
   }
 }
 
 const actions = {
-
-  getAllShopsAction({ commit }, service_id){
-    let params = {}
-    if(service_id){
-      params = {
-        service_id:service_id
-      }
-    }
-    shopApi.getAllShops(params,
+  createAppointmentAction({ commit }, body){
+    console.log(body);
+    appointmentApi.createAppointment(
+      body,
       result =>{
-        commit('SET_SHOPS', result.data);
+        console.log(result.data);
       },
       error =>{
+        console.log('hola');
+        console.log(error);
         return error;
       }
     )

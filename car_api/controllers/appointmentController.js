@@ -46,7 +46,7 @@ exports.AppointmentController = class AppointmentControllerClass {
       res.status(400).json(error);
     }
   }
-  
+
   /*Funcion encargada de
   borrar un appointement*/
   delete(){
