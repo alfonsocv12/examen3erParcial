@@ -21,5 +21,12 @@ export default {
         .get(`${config.host}/appointment/status_types`)
         .then(onSuccess)
         .catch(onError);
+    },
+
+    patchAppointment(_id, body = {}, onSuccess, onError){
+      return axios
+        .patch(`${config.host}/appointment/update/${_id}`, body)
+        .then(onSuccess)
+        .catch(onError);
     }
 };

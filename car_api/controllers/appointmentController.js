@@ -38,8 +38,10 @@ exports.AppointmentController = class AppointmentControllerClass {
   actualizar un appointement*/
   async update(req, res){
     try{
+      console.log(req.params.appointment_id);
       let appointment = await Appointment.findById(req.params.appointment_id);
       if(!appointment) res.status(400).send({msg:"No existe el appointment"})
+      console.log(req.body.status);
       req.body.status ? appointment.status = req.body.status : null;
       await appointment.save()
       res.status(200).json(appointment);

@@ -23,6 +23,13 @@
       }
     },
     methods:{
+      checkToken(){
+        const token = JSON.parse(JSON.stringify(this.$store.getters['shop/getToken']));
+        if(token.token){
+            this.$router.push('/shop')
+        }
+      },
+
       login(){
          const { email, password } = this
          this.$store.dispatch(`${storeModuleShop}/loginShop`,{email:email,password:password}).then(result=>{
@@ -33,6 +40,9 @@
            }
          })
       }
+    },
+    mounted(){
+      this.checkToken()
     }
   }
 

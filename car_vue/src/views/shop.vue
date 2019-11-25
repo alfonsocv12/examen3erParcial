@@ -10,17 +10,18 @@
           <th scope="col">service</th>
           <th scope="col">date</th>
           <th scope="col">status</th>
+          <th scope="col">update</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="appointment in shopAppointments">
+        <tr v-for="appointment in getShopAppointments">
           <td>{{appointment.name}}</td>
           <td>{{appointment.car}}</td>
           <td>{{appointment.email}}</td>
           <td>{{appointment.service}}</td>
           <td>{{appointment.date}}</td>
           <td>
-            <select @change="changeAppointmentStatus(appointment, $event)" class="" name="" ref="status">
+            <select class="" id="status" :ref="appointment._id" >
               <template v-for='status in getStatusEnum'>
                 <option selected v-if='status === appointment.status'  :value="status">
                   {{status}}
@@ -31,11 +32,11 @@
               </template>
             </select>
           </td>
-          <template v-if="appointment.change">
-            <td>
-              <button type="button" name="button">update</button>
-            </td>
-          </template>
+          <td>
+            <button v-on:click="updateAppointment(appointment._id)" class="btn btn-primary" type="button" name="button">
+              update
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -83,9 +84,13 @@
         this.$store.dispatch(`${storeModuleAppointment}/getStatusEnumAction`)
       },
 
-      changeAppointmentStatus(appointment, event){
-        console.log(appointment);
-        console.log(event);
+      updateAppointment(appointment_id){
+        let data ={
+          _id: appointment_id,
+          body:{status:this.$refs[appointment_id]['0'].value},
+          shop_id:this.user._id
+        }
+        this.$store.dispatch(`${storeModuleAppointment}/updateAppointmentAction`, data);
       }
     },
     mounted(){

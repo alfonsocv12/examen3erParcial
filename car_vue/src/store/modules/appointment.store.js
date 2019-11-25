@@ -54,6 +54,19 @@ const actions = {
         return error.response;
       }
     );
+  },
+
+  updateAppointmentAction({ commit }, data){
+    appointmentApi.patchAppointment(
+      data._id,
+      data.body,
+      result =>{
+        this.getAppointmentsShopAction({ commit }, data.shop_id)
+      },
+      error =>{
+        return error.response;
+      }
+    )
   }
 }
 
