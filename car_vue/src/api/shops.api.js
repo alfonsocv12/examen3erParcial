@@ -2,9 +2,9 @@ import config from "@/../config";
 import axios from "axios";
 
 export default {
-    getAllServices(params = {}, onSuccess, onError) {
+    getAllShops(params = {}, onSuccess, onError) {
         return axios
-            .get(`${config.host}/service/all`, params)
+            .get(`${config.host}/shop/all`, {params: params})
             .then(onSuccess)
             .catch(onError);
     }
