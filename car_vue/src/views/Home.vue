@@ -10,21 +10,21 @@
       <div class="form-row">
         <div class="col form-group">
           <label for="name">name </label>
-          <input type="text" class="form-control" name="name" placeholder="Enter name" ref="name">
+          <input type="text" class="form-control" name="name" placeholder="Enter name" ref="name" required>
         </div>
         <div class="col form-group">
           <label for="email">email </label>
-          <input type="email" class="form-control" name="name" placeholder="Enter email" ref="email">
+          <input type="email" class="form-control" name="name" placeholder="Enter email" ref="email" required>
         </div>
       </div>
       <div class="form-row">
         <div class="col form-group">
           <label for="name">car </label>
-          <input type="text" class="form-control" name="name" placeholder="Enter your car model" ref="car">
+          <input type="text" class="form-control" name="name" placeholder="Enter your car model" ref="car" required>
         </div>
         <div class="col form-group">
           <label for="name">service </label>
-          <select class="form-control" @change="filterShops($event)" id="service" ref="service">
+          <select class="form-control" @change="filterShops($event)" id="service" ref="service" required>
               <option v-for='service in getServices' :value="service._id">
                 {{service.name}}
               </option>
@@ -34,7 +34,7 @@
       <div class="form-row">
         <div class="col form-group">
           <label for="name">shop </label>
-          <select class="form-control" @change="selectShop($event)" id="shop" ref="shop">
+          <select class="form-control" @change="selectShop($event)" id="shop" ref="shop" required>
               <option v-for='shop in getShops' :value="shop._id">
                 {{shop.name}}
               </option>
@@ -42,10 +42,10 @@
         </div>
         <div class="col form-group">
           <label for="date"> date</label>
-          <datetime class="form-control" format="YYYY-MM-DD H:i" ref="date"></datetime>
+          <datetime class="form-control" format="YYYY-MM-DD H:i" ref="date" required></datetime>
         </div>
       </div>
-      <a href="#" v-on:click="makeAppointment" type="submit" class="btn btn-primary">Submit</a>
+      <button href="#" v-on:click="makeAppointment" type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
 </template>
