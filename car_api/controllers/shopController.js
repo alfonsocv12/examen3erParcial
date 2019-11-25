@@ -58,7 +58,7 @@ exports.ShopController = class ShopControllerClass {
       const shop = await Shop.findOne({email:req.body.email},{name:1, email:1,password:1})
       this.validateEmail(res, shop)
       this.validatePassword(res, shop.password, req.body.password);
-      const token = jwt.sign({email:shop.email,name:shop.name}, process.env.secret_token, {expiresIn: '24h'});
+      const token = jwt.sign({email:shop.email,name:shop.name,_id:shop._id}, process.env.secret_token, {expiresIn: '24h'});
       res.status(200).send({token:token})
     }catch(error){
       res.status(400).send({msg:error.message});

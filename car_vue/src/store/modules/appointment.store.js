@@ -1,33 +1,59 @@
 import appointmentApi from '@/api/appointment.api';
 
 const state = {
-  appointment: []
+  appointments: [],
+  statusEnum:[]
 }
 
 const getters = {
-  getAppointment: state => state.appointment
+  getShopAppointments: state => state.appointments,
+  getStatusEnum: state => state.statusEnum
 }
 
 const mutations = {
-  SET_APPOINTMENT(state, appointment){
-    state.appointment = appointment
+  SET_SHOP_APPOINTMENTS(state, appointment){
+    state.appointments = appointment
+  },
+  SET_STATUS_ENUM(state, statusEnum){
+    state.statusEnum = statusEnum
   }
 }
 
 const actions = {
-  createAppointmentAction({ commit }, body){
-    console.log(body);
-    appointmentApi.createAppointment(
+
+  async createAppointmentAction({ commit }, body){
+    return await appointmentApi.createAppointment(
       body,
       result =>{
-        console.log(result.data);
+        return result;
       },
       error =>{
-        console.log('hola');
-        console.log(error);
-        return error;
+        return error.response;
       }
     )
+  },
+
+  getAppointmentsShopAction({ commit }, params){
+    appointmentApi.getAppointmentsShop(
+      params,
+      result =>{
+        commit('SET_SHOP_APPOINTMENTS', result.data)
+      },
+      error =>{
+        return error.response;
+      }
+    )
+  },
+
+  getStatusEnumAction({ commit }){
+    appointmentApi.getStatusEnumApi(
+      result =>{
+        commit('SET_STATUS_ENUM',result.data)
+      },
+      error =>{
+        return error.response;
+      }
+    );
   }
 }
 

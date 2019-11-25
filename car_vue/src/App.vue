@@ -1,12 +1,31 @@
 <template>
   <div id="app">
+    <h2>{{title}}</h2>
     <div id="nav">
-      <router-link to="/">appointment</router-link> |
-      <router-link to="/login">login</router-link>
+      <router-link to="/" @click.native="updateMeta">appointment</router-link> |
+      <router-link to="/login" @click.native="updateMeta">login</router-link>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+    export default {
+      data(){
+        return{
+          title: this.$route.meta.title
+        }
+      },
+      methods:{
+        updateMeta(){
+          this.title = this.$route.meta.title
+        }
+      },
+      mounted(){
+        this.updateMeta();
+      }
+    }
+</script>
 
 <style>
 #app {

@@ -1,4 +1,5 @@
 const Appointment = require("../models/appointmentModel");
+const Service = require("../models/serviceModel");
 const baseController = new (require("../controllers/baseController")).BaseController();
 const ObjectId = (require('mongoose')).Types.ObjectId
 
@@ -64,6 +65,16 @@ exports.AppointmentController = class AppointmentControllerClass {
   Funcion encargada de regresar
   todas las citas de una shop*/
   async getAllShopId(req, res){
-    res.status(200).send(await Appointment.find({shop:ObjectId(req.params.shop_id),status:{$ne:"Finish"}}));
+    let appointments = JSON.parse(JSON.stringify(await Appointment.find({shop:ObjectId(req.params.shop_id),status:{$ne:"Finish"}})));
+    appointments = await this.getServices(appointments);
+    res.status(200).send(appointments);
+  }
+
+  /**/
+  async getServices(appointments){
+    for(let index in Object.entries(appointments)){
+        appointments[index].service = (await Service.findById(ObjectId(appointments[index].service))).name;
+    }
+    return appointments
   }
 }

@@ -1,7 +1,6 @@
 <template>
   <div>
     <form class="login" @submit.prevent="login">
-      <h1>Sign in</h1>
       <label>User name</label>
       <input required v-model="email" type="text" placeholder="Enter email"/>
       <label>Password</label>
@@ -26,8 +25,13 @@
     methods:{
       login(){
          const { email, password } = this
-         this.$store.dispatch(`${storeModuleShop}/loginShop`,{email:email,password:password}).then(result=>{})
-         this.$router.push('/')
+         this.$store.dispatch(`${storeModuleShop}/loginShop`,{email:email,password:password}).then(result=>{
+           if(result.status == 200){
+             this.$router.push('/shop')
+           }else{
+
+           }
+         })
       }
     }
   }

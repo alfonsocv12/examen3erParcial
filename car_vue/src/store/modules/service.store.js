@@ -2,21 +2,16 @@ import serviceApi from '@/api/service.api';
 import shopApi from '@/api/shops.api';
 
 const state = {
-  services: [],
-  shops: []
+  services: []
 }
 
 const getters = {
-  getServices: state => state.services,
-  getShops: state => state.shops
+  getServices: state => state.services
 }
 
 const mutations = {
   SET_SERVICES(state, services){
     state.services = services
-  },
-  SET_SHOPS(state, shops){
-    state.shops = shops
   }
 }
 
@@ -32,24 +27,8 @@ const actions = {
         return error;
       }
     );
-  },
-
-  getAllShopsAction({ commit }, service_id){
-    let params = {}
-    if(service_id){
-      params = {
-        service_id:service_id
-      }
-    }
-    shopApi.getAllShops(params,
-      result =>{
-        commit('SET_SHOPS', result.data);
-      },
-      error =>{
-        return error;
-      }
-    )
   }
+
 }
 
 export default {

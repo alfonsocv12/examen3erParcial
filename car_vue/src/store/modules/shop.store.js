@@ -2,12 +2,12 @@ import shopApi from '@/api/shops.api';
 
 const state = {
   shops: [],
-  token: null
+  token: {}
 }
 
 const getters = {
   getShops: state => state.shops,
-  getToken: token => state.token
+  getToken: state => state.token
 }
 
 const mutations = {
@@ -21,14 +21,15 @@ const mutations = {
 
 const actions = {
 
-  loginShop({ commit }, data){
-    shopApi.loginPost(
+  async loginShop({ commit }, data){
+    return await shopApi.loginPost(
       data,
       result => {
-        commit('SET_TOKEN', result.data)
+        commit('SET_TOKEN', result.data);
+        return result;
       },
       error => {
-        return error;
+        return error.response;
       }
     );
   },

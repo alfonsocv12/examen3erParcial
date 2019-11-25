@@ -11,17 +11,26 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
+    meta:{
+      title: 'Appointment'
+    }
   },
   {
     path: '/login',
     name: 'login',
-    component: Login
+    component: Login,
+    meta:{
+      title: 'Sign in'
+    }
   },
   {
     path: '/shop',
     name: 'shop',
-    component: Shop
+    component: Shop,
+    meta:{
+      title: 'Shop'
+    }
   }
 ]
 
