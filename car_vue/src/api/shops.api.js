@@ -7,5 +7,12 @@ export default {
             .get(`${config.host}/shop/all`, {params: params})
             .then(onSuccess)
             .catch(onError);
+    },
+
+    loginPost(body = {}, onSuccess, onError){
+      return axios
+        .post(`${config.host}/shop/login`,body)
+        .then(onSuccess)
+        .catch(onError);
     }
 };
