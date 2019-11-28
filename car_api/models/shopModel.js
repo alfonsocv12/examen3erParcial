@@ -9,10 +9,22 @@ const shopSchema = new Schema({
       type:String, required: [true, "Necesitas mandar una contraseña"]
     },
     hours: {
-      initial: {type:},
-      final: {type:}
+      initial: {
+          type: Date,
+          required:[true, "You need to send when your workshop starts working"]
+      },
+      final: {
+        type: Date,
+        required:[true, "You need to send when your workshop Stops working"]
+      }
     },
-    services: [{type:ObjectId, ref:'service'}]
+    services: [{
+      serviceId:{type:ObjectId, ref:'service'},
+      name:String,
+      price:Double,
+      descripcion:{type:String}
+    }],
+    ubicacion:{type:Map}
 })
 
 module.exports = mongoose.model('Shop', shopSchema)
