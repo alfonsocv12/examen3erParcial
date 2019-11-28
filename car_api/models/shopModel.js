@@ -5,7 +5,13 @@ const ObjectId = mongoose.Schema.Types.ObjectId
 const shopSchema = new Schema({
     name: { type: String, required: [true, "Necesita nombre"] },
     email: { type: String, required: [true, "Necesita correo"], unique:true},
-    password:{ type:String, required: [true, "Necesitas mandar una contraseña"]},
+    password: {
+      type:String, required: [true, "Necesitas mandar una contraseña"]
+    },
+    hours: {
+      initial: {type:},
+      final: {type:}
+    },
     services: [{type:ObjectId, ref:'service'}]
 })
 
