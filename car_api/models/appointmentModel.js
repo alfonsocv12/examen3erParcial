@@ -6,8 +6,10 @@ const appointmentSchema = new Schema({
     name: { type: String, required: [true, "Necesita nombre"] },
     email: { type: String, required: [true, "Necesita nombre"] },
     car: {type: String, required: [true, "Necesita un carro"]},
-    service: {type: ObjectId, required: [true, "Necesita mandar un servicio"]},
-    shop: {type: ObjectId, required: [true, "Necesita mandar un shop"]},
+    shop: {
+      shopID: {type: ObjectId, required: [true, "Necesita mandar un shop"]},
+      service: {type: ObjectId, required: [true, "Necesita mandar un servicio"]}
+    },
     date: {type: Date, required: [true, "Necesita mandar un dia"]},
     status: {
       type: String,

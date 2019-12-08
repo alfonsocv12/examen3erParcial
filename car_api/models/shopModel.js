@@ -8,7 +8,7 @@ const shopSchema = new Schema({
     password: {
       type:String, required: [true, "Necesitas mandar una contraseña"]
     },
-    hours: {
+    schedule: {
       initial: {
           type: Date,
           required:[true, "You need to send when your workshop starts working"]
