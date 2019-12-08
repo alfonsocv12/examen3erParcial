@@ -17,7 +17,8 @@ exports.ShopController = class ShopControllerClass {
   async getAll(req, res){
     try{
       let query = {}
-      req.query.service_id ? query['services'] = ObjectId(req.query.service_id) : null;
+      req.query.service_id ?\
+        query['services']['serviceId'] = ObjectId(req.query.service_id) : null;
       res.status(200).send(await Shop.find(query));
     }catch(error){
       res.status(400).send({msg:error.message});
@@ -31,7 +32,9 @@ exports.ShopController = class ShopControllerClass {
   async create(req, res){
     try {
         req.body.password = passwordHash.generate(req.body.password);
-        req.body.services = this.getOIdArray(res, req.body.services);
+        req.body.services.serviceId = this.getOIdArray(
+            res, req.body.services
+        );
         const shop = new Shop(req.body);
         await shop.save();
         res.status(200).json(shop);
@@ -41,14 +44,54 @@ exports.ShopController = class ShopControllerClass {
     }
   }
 
+  /*Funcion encargada de
+  actualizar la tienda*/
+  async updateShop(res, req){
+    try {
+      let shop = await Shop.findById(req.params.shop_id);
+      if(!shop) res.status(400).send({msg:"No exite la shop"})
+      shop = this.setData(req.body, shop);
+      await shop.save()
+      res.status(200).send({msg:"Exitoso"})
+    } catch (error) {
+      res.status(400).send({msg:error.message})
+    }
+  }
+
+  /*
+  Funcion encargada de actualizar la tienda*/
+  setData(reqJson, shop){
+    reqJson.name ? shop.name = reqJson.name : shop.name;
+    reqJson.services ?\
+      shop.services = shop.services.push(reqJson.services) : shop.services;
+    return shop
+  }
+
   /*
   Funcion encargada de regresar un
   ObjectId por cada parte del array*/
   getOIdArray(res, services){
     for(let [index, service] in services.entries()){
-      services[index] = baseController.getId(res, service);
+      services[index].serviceId = baseController.getId(
+        res, service.serviceId
+      );
     }
     return services
+  }
+
+  /*
+  Funcion encargada para borrar una
+  tienda*/
+  async deleteShop(req, res){
+    try{
+      const shop = await Shop.deleteOne(
+        {_id:baseController.getId(req.params.shop_id)}
+      );
+      if(shop.deletedCount == 0) throw new Error('No se encontro el valor')
+      res.status(200).send({msg:"Exitoso"});
+    }catch(error){
+      res.status(400).send({msg:error.message})
+    }
   }
 
   /*

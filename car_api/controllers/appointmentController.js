@@ -38,11 +38,9 @@ exports.AppointmentController = class AppointmentControllerClass {
   actualizar un appointement*/
   async update(req, res){
     try{
-      console.log(req.params.appointment_id);
       let appointment = await Appointment.findById(req.params.appointment_id);
       if(!appointment) res.status(400).send({msg:"No existe el appointment"})
-      console.log(req.body.status);
-      req.body.status ? appointment.status = req.body.status : null;
+      req.body.status ? appointment.status = req.body.status : appointment.status;
       await appointment.save()
       res.status(200).json(appointment);
     }catch(error){
@@ -52,8 +50,16 @@ exports.AppointmentController = class AppointmentControllerClass {
 
   /*Funcion encargada de
   borrar un appointement*/
-  delete(){
-
+  async delete(res, req){
+    try {
+      const appointment = await Appointment.deleteOna(
+        baseController.getId(res.params.appointment_id)
+      )
+      if(appointment.deletedCount == 0) throw new Error('No se encontro el valor')
+      res.status(200).send({msg:"Exitoso"})
+    } catch (error) {
+      res.status(400).json(error);
+    }
   }
 
   /*
@@ -67,7 +73,11 @@ exports.AppointmentController = class AppointmentControllerClass {
   Funcion encargada de regresar
   todas las citas de una shop*/
   async getAllShopId(req, res){
-    let appointments = JSON.parse(JSON.stringify(await Appointment.find({shop:ObjectId(req.params.shop_id),status:{$ne:"Finish"}})));
+    let appointments = JSON.parse(JSON.stringify(
+      await Appointment.find(
+        {shop:ObjectId(req.params.shop_id),status:{$ne:"Finish"}})
+      )
+    );
     appointments = await this.getServices(appointments);
     res.status(200).send(appointments);
   }
@@ -75,7 +85,9 @@ exports.AppointmentController = class AppointmentControllerClass {
   /**/
   async getServices(appointments){
     for(let index in Object.entries(appointments)){
-        appointments[index].service = (await Service.findById(ObjectId(appointments[index].service))).name;
+        appointments[index].service = (
+          await Service.findById(ObjectId(appointments[index].service))
+        ).name;
     }
     return appointments
   }
