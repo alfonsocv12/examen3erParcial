@@ -5,12 +5,15 @@ const ObjectId = mongoose.Schema.Types.ObjectId
 const appointmentSchema = new Schema({
     name: { type: String, required: [true, "Necesita nombre"] },
     email: { type: String, required: [true, "Necesita nombre"] },
-    car: {type: String, required: [true, "Necesita un carro"]},
-    shop: {
-      shopID: {type: ObjectId, required: [true, "Necesita mandar un shop"]},
-      service: {type: ObjectId, required: [true, "Necesita mandar un servicio"]}
+    car: {
+      vin: {type:String, required: [true, "Necesita un carro"]},
+      model: {type: String, required: [true, "Necesita un carro"]}
     },
-    date: {type: Date, required: [true, "Necesita mandar un dia"]},
+    service: {
+      id:{type: ObjectId, required: [true, "Necesita mandar un servicio"]},
+      shopId:{type: ObjectId, required: [true, "Necesita mandar una shop"]}
+    },
+    date: {type: String, required: [true, "Necesita mandar un dia"]},
     status: {
       type: String,
       enum:['pending','in process','Finish'],

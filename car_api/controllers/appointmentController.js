@@ -26,8 +26,8 @@ exports.AppointmentController = class AppointmentControllerClass {
   Funcion encargada de validar
   la nueva entrada*/
   validateInput(res, input_json){
-    input_json.service = baseController.getId(input_json.service);
-    input_json.shop = baseController.getId(input_json.shop);
+    input_json.service.id = baseController.getId(input_json.service.id);
+    input_json.service.shopId = baseController.getId(input_json.service.shopId);
     if(!baseController.isValidDate(input_json.date)){
       res.status(400).send({msg:"Manda fecha adecuada"});
     }
@@ -75,7 +75,7 @@ exports.AppointmentController = class AppointmentControllerClass {
   async getAllShopId(req, res){
     let appointments = JSON.parse(JSON.stringify(
       await Appointment.find(
-        {shop:ObjectId(req.params.shop_id),status:{$ne:"Finish"}})
+        {"service.shopId": ObjectId(req.params.shop_id), status:{$ne:"Finish"}})
       )
     );
     appointments = await this.getServices(appointments);

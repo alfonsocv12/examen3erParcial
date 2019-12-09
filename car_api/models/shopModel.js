@@ -10,21 +10,21 @@ const shopSchema = new Schema({
     },
     schedule: {
       initial: {
-          type: Date,
+          type: String,
           required:[true, "You need to send when your workshop starts working"]
       },
       final: {
-        type: Date,
+        type: String,
         required:[true, "You need to send when your workshop Stops working"]
       }
     },
     services: [{
       serviceId:{type:ObjectId, ref:'service'},
       name:String,
-      price:Double,
+      price:Number,
       descripcion:{type:String}
     }],
-    ubicacion:{type:Map}
+    ubicacion:Array
 })
 
 module.exports = mongoose.model('Shop', shopSchema)

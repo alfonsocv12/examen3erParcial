@@ -17,8 +17,7 @@ exports.ShopController = class ShopControllerClass {
   async getAll(req, res){
     try{
       let query = {}
-      req.query.service_id ?\
-        query['services']['serviceId'] = ObjectId(req.query.service_id) : null;
+      req.query.service_id ? query["services.serviceId"] = ObjectId(req.query.service_id) : null;
       res.status(200).send(await Shop.find(query));
     }catch(error){
       res.status(400).send({msg:error.message});
@@ -62,8 +61,7 @@ exports.ShopController = class ShopControllerClass {
   Funcion encargada de actualizar la tienda*/
   setData(reqJson, shop){
     reqJson.name ? shop.name = reqJson.name : shop.name;
-    reqJson.services ?\
-      shop.services = shop.services.push(reqJson.services) : shop.services;
+    reqJson.services ? shop.services = shop.services.push(reqJson.services) : shop.services;
     return shop
   }
 
